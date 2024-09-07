@@ -1,0 +1,20 @@
+<div class="button-container">
+  <div class="column">
+    <mat-button-toggle-group class="mat-button-toggle-vertical">
+      <mat-button-toggle *ngFor="let option of options.slice(0, 7)"
+                         [checked]="option === selectedOption"
+                         (click)="selectOption(option)">
+        {{ option }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div class="column">
+    <mat-button-toggle-group class="mat-button-toggle-vertical">
+      <mat-button-toggle *ngFor="let option of options.slice(7)"
+                         [checked]="option === selectedOption"
+                         (click)="selectOption(option)">
+        {{ option }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>

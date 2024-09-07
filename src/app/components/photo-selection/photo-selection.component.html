@@ -1,0 +1,10 @@
+<div class="photo-selection-container">
+  <div class="image-container">
+    <img class="input-img" [src]="selectedImage" [alt]="selectedImage">
+  </div>
+  <label for="fileInput">
+    <span>Выберите файл</span>
+    <input id="fileInput" type="file" style="display: none;" (change)="onFileSelected($event)">
+  </label>
+</div>
+

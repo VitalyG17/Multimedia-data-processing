@@ -1,0 +1,14 @@
+.input-img {
+  max-width: 600px;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+label {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: white;
+}
