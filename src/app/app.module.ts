@@ -16,6 +16,8 @@ import {ImageNegativeService} from './services/image-negative.service';
 import {FilterService} from './services/filter.service';
 import {ImageProcessingService} from './services/image-processing.service';
 import {MatButtonModule} from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent],
@@ -29,6 +31,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonToggleModule,
     MatToolbarModule,
     MatButtonModule,
+    MatExpansionModule,
+    MatInputModule,
   ],
   providers: [ImageNegativeService, FilterService, ImageProcessingService],
   bootstrap: [AppComponent],

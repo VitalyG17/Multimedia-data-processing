@@ -6,5 +6,8 @@
     <span>Выберите файл</span>
     <input id="fileInput" type="file" style="display: none;" (change)="onFileSelected($event)">
   </label>
+  <label style="margin-left: 1vh">
+    <span (click)="onFileDelete()">Удалить файл</span>
+  </label>
 </div>
 

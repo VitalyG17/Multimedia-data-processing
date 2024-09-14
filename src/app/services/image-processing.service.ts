@@ -14,6 +14,11 @@ export class ImageProcessingService {
           const filteredImageData: ImageData = this.imageNegativeService.applyNegativeFilter(imageData);
           context.putImageData(filteredImageData, 0, 0);
           break;
+        case 'Степенное преобразование':
+          const gamma: number = 2;
+          const filteredGammaData: ImageData = this.imageNegativeService.applyPowerLawTransformation(imageData, gamma);
+          context.putImageData(filteredGammaData, 0, 0);
+          break;
       }
       return canvas.toDataURL();
     }

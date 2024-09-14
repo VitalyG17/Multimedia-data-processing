@@ -27,12 +27,12 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
       this.applyFilter(filter);
     });
   }
+
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
   protected onFileSelected(event: any): void {
-    console.log(typeof event);
     if (event.target.files && event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       const reader: FileReader = new FileReader();
@@ -47,6 +47,14 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  protected onFileDelete(): void {
+    this.selectedFile = null;
+    this.selectedImage = 'assets/img/none.jpg';
+    this.canvas = null;
+    this.context = null;
+  }
+
   private loadImageToCanvas(): void {
     const img: HTMLImageElement = new Image();
     img.src = this.selectedImage;
@@ -58,6 +66,7 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
       this.context?.drawImage(img, 0, 0);
     };
   }
+
   private applyFilter(filter: string): void {
     if (this.canvas) {
       this.selectedImage = this.imageProcessingService.applyFilter(this.canvas, filter);
