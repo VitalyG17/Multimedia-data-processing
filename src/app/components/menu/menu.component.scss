@@ -1,9 +1,13 @@
 .column {
   padding: 0 10px;
   display: inline-block;
-  width: 45%;
 }
 
-.mat-button-toggle-checked {
-  //background: white;
+::ng-deep .tooltip {
+  font-size: 14px;
+}
+
+.form-field-wrapper {
+  display: flex;
+  gap: 10px;
 }

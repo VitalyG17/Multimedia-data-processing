@@ -37,3 +37,8 @@ $MethodsAndAlgorithmsForProcessingMultimediaData-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.error-message {
+  font-size: 14px;
+  color: #e52e0d;
+}

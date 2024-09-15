@@ -1,39 +1,64 @@
 <div class="button-container">
   <div class="column">
     <mat-button-toggle-group class="mat-button-toggle-vertical">
-      <mat-button-toggle *ngFor="let option of options.slice(0, 7)"
-                         [checked]="option === selectedOption"
-                         (click)="selectOption(option)">
+      <mat-button-toggle
+        *ngFor="let option of options.slice(0, 7)"
+        class="group-item"
+        [checked]="option === selectedOption"
+        (click)="selectOption(option)"
+      >
         {{ option }}
       </mat-button-toggle>
+
+      <mat-accordion multi>
+        <mat-expansion-panel class="accordion-element">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Степенное преобразование</mat-panel-title>
+          </mat-expansion-panel-header>
+          <span class="form-field-wrapper">
+            <mat-form-field>
+              <mat-label>Коэффициент</mat-label>
+              <input matInput type="number" min="0" required="true" [(ngModel)]="coefficient" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Гамма</mat-label>
+              <input matInput type="number" min="0" required="true" [(ngModel)]="gamma" />
+            </mat-form-field>
+
+            <button
+              mat-icon-button
+              matTooltipClass="tooltip"
+              matTooltip="Применить"
+              [disabled]="!coefficient || !gamma"
+              (click)="selectOption('Степенное преобразование')"
+            >
+              <mat-icon>done</mat-icon>
+            </button>
+            <button mat-icon-button matTooltipClass="tooltip" matTooltip="Подробнее о методе" (click)="openDialog()">
+              <mat-icon>info_i</mat-icon>
+            </button>
+          </span>
+          <mat-hint class="error-message" *ngIf="!coefficient || !gamma">Заполните обязательные поля!</mat-hint>
+          <ng-container *ngIf="gamma && coefficient">
+            <mat-hint class="error-message" *ngIf="coefficient < 0 || gamma < 0"
+              >Значения должны быть неотрицательными!</mat-hint
+            >
+          </ng-container>
+        </mat-expansion-panel>
+      </mat-accordion>
     </mat-button-toggle-group>
   </div>
+
   <div class="column">
     <mat-button-toggle-group class="mat-button-toggle-vertical">
-      <mat-button-toggle *ngFor="let option of options.slice(7)"
-                         [checked]="option === selectedOption"
-                         (click)="selectOption(option)">
+      <mat-button-toggle
+        *ngFor="let option of options.slice(7)"
+        [checked]="option === selectedOption"
+        (click)="selectOption(option)"
+      >
         {{ option }}
       </mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 </div>
-
-
-<!--<mat-accordion class="example-headers-align" multi>-->
-<!--  <mat-expansion-panel>-->
-<!--    <mat-expansion-panel-header>-->
-<!--      <mat-panel-title>Степенное преобразование</mat-panel-title>-->
-<!--    </mat-expansion-panel-header>-->
-
-<!--    <mat-form-field>-->
-<!--      <mat-label>Коэффициент</mat-label>-->
-<!--      <input matInput type="number"/>-->
-<!--    </mat-form-field>-->
-
-<!--    <mat-form-field>-->
-<!--      <mat-label>Гамма</mat-label>-->
-<!--      <input matInput type="number" />-->
-<!--    </mat-form-field>-->
-<!--  </mat-expansion-panel>-->
-<!--</mat-accordion>-->

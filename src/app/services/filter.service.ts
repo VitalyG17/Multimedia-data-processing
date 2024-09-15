@@ -3,10 +3,12 @@ import {Observable, Subject} from 'rxjs';
 
 @Injectable()
 export class FilterService {
-  private filterSubject: Subject<string> = new Subject<string>();
+  private filterSubject: Subject<{filter: string; coefficient?: number; gamma?: number}> = new Subject();
 
-  public filterSelected$: Observable<string> = this.filterSubject.asObservable();
-  public selectFilter(filter: string): void {
-    this.filterSubject.next(filter);
+  public filterSelected$: Observable<{filter: string; coefficient?: number; gamma?: number}> =
+    this.filterSubject.asObservable();
+
+  public selectFilter(filter: string, coefficient?: number, gamma?: number): void {
+    this.filterSubject.next({filter, coefficient, gamma});
   }
 }

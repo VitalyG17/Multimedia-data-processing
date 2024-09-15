@@ -1,10 +1,13 @@
 import {inject, Injectable} from '@angular/core';
 import {ImageNegativeService} from './image-negative.service';
+import {PowerLawTransformationService} from './power-law-transformation.service';
 
 @Injectable()
 export class ImageProcessingService {
   private readonly imageNegativeService: ImageNegativeService = inject(ImageNegativeService);
-  public applyFilter(canvas: HTMLCanvasElement, filter: string): string {
+
+  private readonly powerLawTransformationService: PowerLawTransformationService = inject(PowerLawTransformationService);
+  public applyFilter(canvas: HTMLCanvasElement, filter: string, coefficient: number, gamma: number): string {
     const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
     if (context) {
       const imageData: ImageData = context.getImageData(0, 0, canvas.width, canvas.height);
@@ -15,8 +18,11 @@ export class ImageProcessingService {
           context.putImageData(filteredImageData, 0, 0);
           break;
         case 'Степенное преобразование':
-          const gamma: number = 2;
-          const filteredGammaData: ImageData = this.imageNegativeService.applyPowerLawTransformation(imageData, gamma);
+          const filteredGammaData: ImageData = this.powerLawTransformationService.applyPowerLawTransformation(
+            imageData,
+            gamma,
+            coefficient,
+          );
           context.putImageData(filteredGammaData, 0, 0);
           break;
       }

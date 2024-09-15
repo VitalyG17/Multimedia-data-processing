@@ -1,0 +1,23 @@
+.wrapper {
+  &-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 24px 0 24px;
+  }
+}
+
+.title{
+  font-size: 24px !important;
+  &-sub {
+    font-size: 20px
+  }
+}
+
+.key-word {
+  font-weight: 600;
+}
+
+.list li  {
+  padding: 10px 0;
+  list-style: none;
+}

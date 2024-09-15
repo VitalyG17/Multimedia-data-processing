@@ -18,9 +18,14 @@ import {ImageProcessingService} from './services/image-processing.service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatInputModule} from '@angular/material/input';
+import {FormsModule} from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {DialogComponent} from './components/dialog/dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {PowerLawTransformationService} from './services/power-law-transformation.service';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent],
+  declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,8 +38,11 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonModule,
     MatExpansionModule,
     MatInputModule,
+    FormsModule,
+    MatTooltipModule,
+    MatDialogModule,
   ],
-  providers: [ImageNegativeService, FilterService, ImageProcessingService],
+  providers: [ImageNegativeService, FilterService, ImageProcessingService, PowerLawTransformationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

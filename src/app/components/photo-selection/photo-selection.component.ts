@@ -23,8 +23,8 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
   public ngOnInit(): void {
-    this.filterService.filterSelected$.subscribe((filter: string) => {
-      this.applyFilter(filter);
+    this.filterService.filterSelected$.subscribe(({filter, coefficient, gamma}) => {
+      this.applyFilter(filter, coefficient, gamma);
     });
   }
 
@@ -67,9 +67,14 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
     };
   }
 
-  private applyFilter(filter: string): void {
+  private applyFilter(filter: string, coefficient?: number, gamma?: number): void {
     if (this.canvas) {
-      this.selectedImage = this.imageProcessingService.applyFilter(this.canvas, filter);
+      this.selectedImage = this.imageProcessingService.applyFilter(
+        this.canvas,
+        filter,
+        Number(coefficient),
+        Number(gamma),
+      );
     }
   }
 }
