@@ -1,13 +1,12 @@
 <div class="photo-selection-container">
   <div class="image-container">
-    <img class="input-img" [src]="selectedImage" [alt]="selectedImage">
+    <img class="input-img" [src]="selectedImage" [alt]="selectedImage" />
   </div>
   <label for="fileInput">
     <span>Выберите файл</span>
-    <input id="fileInput" type="file" style="display: none;" (change)="onFileSelected($event)">
+    <input id="fileInput" type="file" style="display: none" (change)="onFileSelected($event)" />
   </label>
   <label style="margin-left: 1vh">
-    <span (click)="onFileDelete()">Удалить файл</span>
+    <span (click)="resetFilter()">Сбросить фильтр</span>
   </label>
 </div>
-

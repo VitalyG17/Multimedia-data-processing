@@ -13,6 +13,8 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
 
   protected selectedImage: string = 'assets/img/none.jpg';
 
+  private originalImage: string = '';
+
   private canvas: HTMLCanvasElement | null = null;
 
   private context: CanvasRenderingContext2D | null = null;
@@ -39,6 +41,7 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
 
       reader.onload = (): void => {
         this.selectedImage = reader.result as string;
+        this.originalImage = this.selectedImage;
         this.loadImageToCanvas();
       };
 
@@ -48,11 +51,9 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected onFileDelete(): void {
-    this.selectedFile = null;
-    this.selectedImage = 'assets/img/none.jpg';
-    this.canvas = null;
-    this.context = null;
+  protected resetFilter(): void {
+    this.selectedImage = this.originalImage;
+    this.loadImageToCanvas();
   }
 
   private loadImageToCanvas(): void {

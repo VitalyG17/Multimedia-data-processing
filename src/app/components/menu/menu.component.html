@@ -2,7 +2,7 @@
   <div class="column">
     <mat-button-toggle-group class="mat-button-toggle-vertical">
       <mat-button-toggle
-        *ngFor="let option of options.slice(0, 7)"
+        *ngFor="let option of options.slice(0, 6)"
         class="group-item"
         [checked]="option === selectedOption"
         (click)="selectOption(option)"
@@ -53,7 +53,7 @@
   <div class="column">
     <mat-button-toggle-group class="mat-button-toggle-vertical">
       <mat-button-toggle
-        *ngFor="let option of options.slice(7)"
+        *ngFor="let option of options.slice(6)"
         [checked]="option === selectedOption"
         (click)="selectOption(option)"
       >

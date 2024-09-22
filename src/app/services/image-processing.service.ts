@@ -1,12 +1,18 @@
 import {inject, Injectable} from '@angular/core';
 import {ImageNegativeService} from './image-negative.service';
 import {PowerLawTransformationService} from './power-law-transformation.service';
+import {MedianService} from './median.service';
+import {LaplacianService} from './laplacian.service';
 
 @Injectable()
 export class ImageProcessingService {
   private readonly imageNegativeService: ImageNegativeService = inject(ImageNegativeService);
 
   private readonly powerLawTransformationService: PowerLawTransformationService = inject(PowerLawTransformationService);
+
+  private readonly medianService: MedianService = inject(MedianService);
+
+  private readonly laplacianService: LaplacianService = inject(LaplacianService);
   public applyFilter(canvas: HTMLCanvasElement, filter: string, coefficient: number, gamma: number): string {
     const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
     if (context) {
@@ -24,6 +30,14 @@ export class ImageProcessingService {
             coefficient,
           );
           context.putImageData(filteredGammaData, 0, 0);
+          break;
+        case 'Медианный фильтр':
+          const filteredMedianData: ImageData = this.medianService.applyMedianFilter(imageData);
+          context.putImageData(filteredMedianData, 0, 0);
+          break;
+        case 'Лапласиан':
+          const filteredLaplacianService: ImageData = this.laplacianService.applyLaplacianFilter(imageData);
+          context.putImageData(filteredLaplacianService, 0, 0);
           break;
       }
       return canvas.toDataURL();

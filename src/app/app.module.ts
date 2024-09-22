@@ -23,6 +23,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {DialogComponent} from './components/dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {PowerLawTransformationService} from './services/power-law-transformation.service';
+import {MedianService} from './services/median.service';
+import {LaplacianService} from './services/laplacian.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -42,7 +44,14 @@ import {PowerLawTransformationService} from './services/power-law-transformation
     MatTooltipModule,
     MatDialogModule,
   ],
-  providers: [ImageNegativeService, FilterService, ImageProcessingService, PowerLawTransformationService],
+  providers: [
+    ImageNegativeService,
+    FilterService,
+    ImageProcessingService,
+    PowerLawTransformationService,
+    MedianService,
+    LaplacianService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
