@@ -1,8 +1,9 @@
 <div class="button-container">
+  <!--Первая колонка-->
   <div class="column">
     <mat-button-toggle-group class="mat-button-toggle-vertical">
       <mat-button-toggle
-        *ngFor="let option of options.slice(0, 6)"
+        *ngFor="let option of options.slice(0, 8)"
         class="group-item"
         [checked]="option === selectedOption"
         (click)="selectOption(option)"
@@ -10,6 +11,7 @@
         {{ option }}
       </mat-button-toggle>
 
+      <!--Степенное преобразование-->
       <mat-accordion multi>
         <mat-expansion-panel class="accordion-element">
           <mat-expansion-panel-header>
@@ -48,17 +50,71 @@
         </mat-expansion-panel>
       </mat-accordion>
     </mat-button-toggle-group>
-  </div>
 
-  <div class="column">
-    <mat-button-toggle-group class="mat-button-toggle-vertical">
-      <mat-button-toggle
-        *ngFor="let option of options.slice(6)"
-        [checked]="option === selectedOption"
-        (click)="selectOption(option)"
-      >
-        {{ option }}
-      </mat-button-toggle>
-    </mat-button-toggle-group>
+    <!--Вторая колонка-->
+    <div class="column">
+      <mat-button-toggle-group class="mat-button-toggle-vertical">
+        <mat-button-toggle
+          *ngFor="let option of options.slice(6)"
+          [checked]="option === selectedOption"
+          (click)="selectOption(option)"
+        >
+          {{ option }}
+        </mat-button-toggle>
+
+        <!--Градиент-->
+        <mat-button-toggle [matMenuTriggerFor]="menu"> Градиент </mat-button-toggle>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Робертса</button>
+          <button mat-menu-item>Собеля</button>
+        </mat-menu>
+
+        <!--Вырезание диапазона яркостей-->
+        <mat-accordion multi>
+          <mat-expansion-panel class="accordion-element">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Вырезание диапазона яркостей</mat-panel-title>
+            </mat-expansion-panel-header>
+            <span class="form-field-wrapper">
+              <mat-form-field>
+                <mat-label>Мин. яркость</mat-label>
+                <input matInput type="number" min="0" required="true" [(ngModel)]="minBrightness" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Макс. яркость</mat-label>
+                <input matInput type="number" min="0" max="255" required="true" [(ngModel)]="maxBrightness" />
+              </mat-form-field>
+
+              <button
+                mat-icon-button
+                matTooltipClass="tooltip"
+                matTooltip="Применить"
+                [disabled]="!minBrightness || !maxBrightness"
+                (click)="selectOption('Вырезание диапазона яркостей')"
+              >
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-icon-button matTooltipClass="tooltip" matTooltip="Подробнее о методе" (click)="openDialog()">
+                <mat-icon>info_i</mat-icon>
+              </button>
+            </span>
+            <mat-hint class="error-message" *ngIf="!minBrightness || !maxBrightness"
+              >Заполните обязательные поля!</mat-hint
+            >
+            <ng-container *ngIf="minBrightness && maxBrightness">
+              <mat-hint
+                class="error-message"
+                *ngIf="minBrightness < 0 || minBrightness > 255 || maxBrightness < 0 || maxBrightness > 255"
+                >Значения должны быть в диапазоне от 0 до 255!</mat-hint
+              >
+              <mat-hint class="error-message" *ngIf="minBrightness > maxBrightness"
+                >Мин.яркость должна быть меньше Макс.яркость!</mat-hint
+              >
+            </ng-container>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-button-toggle-group>
+    </div>
   </div>
 </div>

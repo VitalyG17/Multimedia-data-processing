@@ -25,6 +25,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {PowerLawTransformationService} from './services/power-law-transformation.service';
 import {MedianService} from './services/median.service';
 import {LaplacianService} from './services/laplacian.service';
+import {BrightnessRangeCutoffService} from './services/brightness-range-cutoff.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -51,6 +52,7 @@ import {LaplacianService} from './services/laplacian.service';
     PowerLawTransformationService,
     MedianService,
     LaplacianService,
+    BrightnessRangeCutoffService,
   ],
   bootstrap: [AppComponent],
 })

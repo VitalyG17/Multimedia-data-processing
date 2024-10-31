@@ -3,6 +3,7 @@ import {ImageNegativeService} from './image-negative.service';
 import {PowerLawTransformationService} from './power-law-transformation.service';
 import {MedianService} from './median.service';
 import {LaplacianService} from './laplacian.service';
+import {BrightnessRangeCutoffService} from './brightness-range-cutoff.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -13,7 +14,17 @@ export class ImageProcessingService {
   private readonly medianService: MedianService = inject(MedianService);
 
   private readonly laplacianService: LaplacianService = inject(LaplacianService);
-  public applyFilter(canvas: HTMLCanvasElement, filter: string, coefficient: number, gamma: number): string {
+
+  private readonly brightnessRangeCutoff: BrightnessRangeCutoffService = inject(BrightnessRangeCutoffService);
+
+  public applyFilter(
+    canvas: HTMLCanvasElement,
+    filter: string,
+    coefficient: number,
+    gamma: number,
+    minBrightness: number,
+    maxBrightness: number,
+  ): string {
     const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
     if (context) {
       const imageData: ImageData = context.getImageData(0, 0, canvas.width, canvas.height);
@@ -38,6 +49,14 @@ export class ImageProcessingService {
         case 'Лапласиан':
           const filteredLaplacianService: ImageData = this.laplacianService.applyLaplacianFilter(imageData);
           context.putImageData(filteredLaplacianService, 0, 0);
+          break;
+        case 'Вырезание диапазона яркостей':
+          const brightnessRangeCutoff: ImageData = this.brightnessRangeCutoff.applyBrightnessRangeCutoff(
+            imageData,
+            minBrightness,
+            maxBrightness,
+          );
+          context.putImageData(brightnessRangeCutoff, 0, 0);
           break;
       }
       return canvas.toDataURL();

@@ -18,6 +18,10 @@ export class MenuComponent {
 
   protected gamma: number | undefined = undefined;
 
+  protected minBrightness: number | undefined = undefined;
+
+  protected maxBrightness: number | undefined = undefined;
+
   private readonly filterService: FilterService = inject(FilterService);
 
   private readonly dialog: MatDialog = inject(MatDialog);
@@ -29,6 +33,8 @@ export class MenuComponent {
   protected selectOption(option: string): void {
     if (option === 'Степенное преобразование') {
       this.filterService.selectFilter(option, this.coefficient, this.gamma);
+    } else if (option === 'Вырезание диапазона яркостей') {
+      this.filterService.selectFilter(option, undefined, undefined, this.minBrightness, this.maxBrightness);
     } else {
       this.filterService.selectFilter(option);
     }
