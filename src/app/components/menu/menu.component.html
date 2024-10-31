@@ -124,6 +124,43 @@
             </ng-container>
           </mat-expansion-panel>
         </mat-accordion>
+
+        <!--Пороговый фильтр-->
+        <mat-expansion-panel class="accordion-element">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Пороговый фильтр</mat-panel-title>
+          </mat-expansion-panel-header>
+          <span class="form-field-wrapper">
+            <mat-form-field>
+              <mat-label>Порог яркости</mat-label>
+              <input matInput type="number" required="true" min="0" max="255" [(ngModel)]="threshold" />
+            </mat-form-field>
+
+            <button
+              mat-icon-button
+              matTooltipClass="tooltip"
+              matTooltip="Применить"
+              [disabled]="!threshold"
+              (click)="selectOption('Пороговый фильтр')"
+            >
+              <mat-icon>done</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltipClass="tooltip"
+              matTooltip="Подробнее о методе"
+              (click)="openDialog('Пороговый фильтр')"
+            >
+              <mat-icon>info_i</mat-icon>
+            </button>
+          </span>
+          <mat-hint class="error-message" *ngIf="!threshold">Заполните обязательные поля!</mat-hint>
+          <ng-container *ngIf="threshold">
+            <mat-hint class="error-message" *ngIf="threshold < 0 || threshold > 255"
+              >Значения должны быть в диапазоне от 0 до 255!</mat-hint
+            >
+          </ng-container>
+        </mat-expansion-panel>
       </mat-button-toggle-group>
     </div>
   </div>

@@ -24,6 +24,8 @@ export class MenuComponent {
 
   protected selectedMethod: string | undefined = undefined;
 
+  protected threshold: number | undefined = undefined;
+
   private readonly filterService: FilterService = inject(FilterService);
 
   private readonly dialog: MatDialog = inject(MatDialog);
@@ -42,6 +44,8 @@ export class MenuComponent {
       this.filterService.selectFilter(option, this.coefficient, this.gamma);
     } else if (option === 'Вырезание диапазона яркостей') {
       this.filterService.selectFilter(option, undefined, undefined, this.minBrightness, this.maxBrightness);
+    } else if (option === 'Пороговый фильтр') {
+      this.filterService.selectFilter(option, undefined, undefined, undefined, undefined, this.threshold);
     } else {
       this.filterService.selectFilter(option);
     }

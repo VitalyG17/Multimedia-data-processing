@@ -9,6 +9,7 @@ export class FilterService {
     gamma?: number;
     minBrightness?: number;
     maxBrightness?: number;
+    threshold?: number;
   }> = new Subject();
 
   public filterSelected$: Observable<{
@@ -17,6 +18,7 @@ export class FilterService {
     gamma?: number;
     minBrightness?: number;
     maxBrightness?: number;
+    threshold?: number;
   }> = this.filterSubject.asObservable();
 
   public selectFilter(
@@ -25,7 +27,8 @@ export class FilterService {
     gamma?: number,
     minBrightness?: number,
     maxBrightness?: number,
+    threshold?: number,
   ): void {
-    this.filterSubject.next({filter, coefficient, gamma, minBrightness, maxBrightness});
+    this.filterSubject.next({filter, coefficient, gamma, minBrightness, maxBrightness, threshold});
   }
 }

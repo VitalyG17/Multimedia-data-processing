@@ -26,6 +26,7 @@ import {PowerLawTransformationService} from './services/power-law-transformation
 import {MedianService} from './services/median.service';
 import {LaplacianService} from './services/laplacian.service';
 import {BrightnessRangeCutoffService} from './services/brightness-range-cutoff.service';
+import {ThresholdService} from './services/threshold.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -53,6 +54,7 @@ import {BrightnessRangeCutoffService} from './services/brightness-range-cutoff.s
     MedianService,
     LaplacianService,
     BrightnessRangeCutoffService,
+    ThresholdService,
   ],
   bootstrap: [AppComponent],
 })

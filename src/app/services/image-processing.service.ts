@@ -4,6 +4,7 @@ import {PowerLawTransformationService} from './power-law-transformation.service'
 import {MedianService} from './median.service';
 import {LaplacianService} from './laplacian.service';
 import {BrightnessRangeCutoffService} from './brightness-range-cutoff.service';
+import {ThresholdService} from './threshold.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -17,6 +18,8 @@ export class ImageProcessingService {
 
   private readonly brightnessRangeCutoff: BrightnessRangeCutoffService = inject(BrightnessRangeCutoffService);
 
+  private readonly thresholdService: ThresholdService = inject(ThresholdService);
+
   public applyFilter(
     canvas: HTMLCanvasElement,
     filter: string,
@@ -24,6 +27,7 @@ export class ImageProcessingService {
     gamma: number,
     minBrightness: number,
     maxBrightness: number,
+    threshold: number,
   ): string {
     const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
     if (context) {
@@ -57,6 +61,10 @@ export class ImageProcessingService {
             maxBrightness,
           );
           context.putImageData(brightnessRangeCutoff, 0, 0);
+          break;
+        case 'Пороговый фильтр':
+          const filteredThresholdData: ImageData = this.thresholdService.applyThresholdFilter(imageData, threshold);
+          context.putImageData(filteredThresholdData, 0, 0);
           break;
       }
       return canvas.toDataURL();
