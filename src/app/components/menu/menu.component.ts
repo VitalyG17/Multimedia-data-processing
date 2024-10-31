@@ -22,12 +22,19 @@ export class MenuComponent {
 
   protected maxBrightness: number | undefined = undefined;
 
+  protected selectedMethod: string | undefined = undefined;
+
   private readonly filterService: FilterService = inject(FilterService);
 
   private readonly dialog: MatDialog = inject(MatDialog);
 
-  protected openDialog(): void {
-    this.dialog.open(DialogComponent);
+  protected openDialog(method: string): void {
+    this.selectedMethod = method;
+    this.dialog.open(DialogComponent, {
+      data: {
+        method,
+      },
+    });
   }
 
   protected selectOption(option: string): void {
