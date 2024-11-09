@@ -29,6 +29,7 @@ import {BrightnessRangeCutoffService} from './services/brightness-range-cutoff.s
 import {ThresholdService} from './services/threshold.service';
 import {LinearService} from './services/linear.service';
 import {DilateService} from './services/dilate.service';
+import {ErosionService} from './services/erosion.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -59,6 +60,7 @@ import {DilateService} from './services/dilate.service';
     ThresholdService,
     LinearService,
     DilateService,
+    ErosionService,
   ],
   bootstrap: [AppComponent],
 })

@@ -7,6 +7,7 @@ import {BrightnessRangeCutoffService} from './brightness-range-cutoff.service';
 import {ThresholdService} from './threshold.service';
 import {LinearService} from './linear.service';
 import {DilateService} from './dilate.service';
+import {ErosionService} from './erosion.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -25,6 +26,8 @@ export class ImageProcessingService {
   private readonly linearService: LinearService = inject(LinearService);
 
   private readonly dilateService: DilateService = inject(DilateService);
+
+  private readonly erosionService: ErosionService = inject(ErosionService);
 
   public applyFilter(
     canvas: HTMLCanvasElement,
@@ -88,6 +91,11 @@ export class ImageProcessingService {
         case 'Дилатация': {
           const filteredDilationData: ImageData = this.dilateService.applyDilation(imageData);
           context.putImageData(filteredDilationData, 0, 0);
+          break;
+        }
+        case 'Эрозия': {
+          const filteredErosionData: ImageData = this.erosionService.applyErosion(imageData);
+          context.putImageData(filteredErosionData, 0, 0);
           break;
         }
       }
