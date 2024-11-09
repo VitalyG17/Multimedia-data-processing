@@ -12,6 +12,7 @@ import {ClosureService} from './closure.service';
 import {OpeningService} from './opening.service';
 import {GradientsService} from './gradients.service';
 import {HighlightingBordersService} from './highlighting-borders.service';
+import {SkeletonService} from './skeleton.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -40,6 +41,8 @@ export class ImageProcessingService {
   private readonly gradientsService: GradientsService = inject(GradientsService);
 
   private readonly highlightingBordersService: HighlightingBordersService = inject(HighlightingBordersService);
+
+  private readonly skeletonService: SkeletonService = inject(SkeletonService);
 
   public applyFilter(
     canvas: HTMLCanvasElement,
@@ -134,6 +137,11 @@ export class ImageProcessingService {
           const filteredHighlightingBordersData: ImageData =
             this.highlightingBordersService.applyEdgeDetection(imageData);
           context.putImageData(filteredHighlightingBordersData, 0, 0);
+          break;
+        }
+        case 'Остов': {
+          const filteredSkeletonData: ImageData = this.skeletonService.applySkeleton(imageData);
+          context.putImageData(filteredSkeletonData, 0, 0);
           break;
         }
       }
