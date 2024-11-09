@@ -30,6 +30,8 @@ import {ThresholdService} from './services/threshold.service';
 import {LinearService} from './services/linear.service';
 import {DilateService} from './services/dilate.service';
 import {ErosionService} from './services/erosion.service';
+import {ClosureService} from './services/closure.service';
+import {OpeningService} from './services/opening.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -61,6 +63,8 @@ import {ErosionService} from './services/erosion.service';
     LinearService,
     DilateService,
     ErosionService,
+    ClosureService,
+    OpeningService,
   ],
   bootstrap: [AppComponent],
 })

@@ -8,6 +8,8 @@ import {ThresholdService} from './threshold.service';
 import {LinearService} from './linear.service';
 import {DilateService} from './dilate.service';
 import {ErosionService} from './erosion.service';
+import {ClosureService} from './closure.service';
+import {OpeningService} from './opening.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -28,6 +30,10 @@ export class ImageProcessingService {
   private readonly dilateService: DilateService = inject(DilateService);
 
   private readonly erosionService: ErosionService = inject(ErosionService);
+
+  private readonly closureService: ClosureService = inject(ClosureService);
+
+  private readonly openingService: OpeningService = inject(OpeningService);
 
   public applyFilter(
     canvas: HTMLCanvasElement,
@@ -96,6 +102,16 @@ export class ImageProcessingService {
         case 'Эрозия': {
           const filteredErosionData: ImageData = this.erosionService.applyErosion(imageData);
           context.putImageData(filteredErosionData, 0, 0);
+          break;
+        }
+        case 'Замыкание': {
+          const filteredClosingData: ImageData = this.closureService.applyClosing(imageData);
+          context.putImageData(filteredClosingData, 0, 0);
+          break;
+        }
+        case 'Размыкание': {
+          const filteredOpeningData: ImageData = this.openingService.applyOpening(imageData);
+          context.putImageData(filteredOpeningData, 0, 0);
           break;
         }
       }
