@@ -35,6 +35,7 @@ import {OpeningService} from './services/opening.service';
 import {GradientsService} from './services/gradients.service';
 import {HighlightingBordersService} from './services/highlighting-borders.service';
 import {SkeletonService} from './services/skeleton.service';
+import {OtsuService} from './services/otsu.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -71,6 +72,7 @@ import {SkeletonService} from './services/skeleton.service';
     GradientsService,
     HighlightingBordersService,
     SkeletonService,
+    OtsuService,
   ],
   bootstrap: [AppComponent],
 })

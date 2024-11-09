@@ -13,6 +13,7 @@ import {OpeningService} from './opening.service';
 import {GradientsService} from './gradients.service';
 import {HighlightingBordersService} from './highlighting-borders.service';
 import {SkeletonService} from './skeleton.service';
+import {OtsuService} from './otsu.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -43,6 +44,8 @@ export class ImageProcessingService {
   private readonly highlightingBordersService: HighlightingBordersService = inject(HighlightingBordersService);
 
   private readonly skeletonService: SkeletonService = inject(SkeletonService);
+
+  private readonly otsuService: OtsuService = inject(OtsuService);
 
   public applyFilter(
     canvas: HTMLCanvasElement,
@@ -142,6 +145,11 @@ export class ImageProcessingService {
         case 'Остов': {
           const filteredSkeletonData: ImageData = this.skeletonService.applySkeleton(imageData);
           context.putImageData(filteredSkeletonData, 0, 0);
+          break;
+        }
+        case 'Метод Оцу': {
+          const filteredOtsuData: ImageData = this.otsuService.applyOtsuThreshold(imageData);
+          context.putImageData(filteredOtsuData, 0, 0);
           break;
         }
       }
