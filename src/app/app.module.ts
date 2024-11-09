@@ -33,6 +33,7 @@ import {ErosionService} from './services/erosion.service';
 import {ClosureService} from './services/closure.service';
 import {OpeningService} from './services/opening.service';
 import {GradientsService} from './services/gradients.service';
+import {HighlightingBordersService} from './services/highlighting-borders.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -67,6 +68,7 @@ import {GradientsService} from './services/gradients.service';
     ClosureService,
     OpeningService,
     GradientsService,
+    HighlightingBordersService,
   ],
   bootstrap: [AppComponent],
 })

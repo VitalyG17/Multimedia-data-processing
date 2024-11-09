@@ -11,6 +11,7 @@ import {ErosionService} from './erosion.service';
 import {ClosureService} from './closure.service';
 import {OpeningService} from './opening.service';
 import {GradientsService} from './gradients.service';
+import {HighlightingBordersService} from './highlighting-borders.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -37,6 +38,8 @@ export class ImageProcessingService {
   private readonly openingService: OpeningService = inject(OpeningService);
 
   private readonly gradientsService: GradientsService = inject(GradientsService);
+
+  private readonly highlightingBordersService: HighlightingBordersService = inject(HighlightingBordersService);
 
   public applyFilter(
     canvas: HTMLCanvasElement,
@@ -125,6 +128,12 @@ export class ImageProcessingService {
         case 'Собеля': {
           const filteredSobelData: ImageData = this.gradientsService.applySobelGradient(imageData);
           context.putImageData(filteredSobelData, 0, 0);
+          break;
+        }
+        case 'Выделение границ': {
+          const filteredHighlightingBordersData: ImageData =
+            this.highlightingBordersService.applyEdgeDetection(imageData);
+          context.putImageData(filteredHighlightingBordersData, 0, 0);
           break;
         }
       }

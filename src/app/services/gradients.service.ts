@@ -63,7 +63,7 @@ export class GradientsService {
     }
   }
 
-  private convolve(imageData: ImageData, x: number, y: number, kernel: number[][]): number {
+  public convolve(imageData: ImageData, x: number, y: number, kernel: number[][]): number {
     const size: number = kernel.length;
     const half: number = Math.floor(size / 2);
     const width: number = imageData.width;
