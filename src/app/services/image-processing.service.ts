@@ -10,6 +10,7 @@ import {DilateService} from './dilate.service';
 import {ErosionService} from './erosion.service';
 import {ClosureService} from './closure.service';
 import {OpeningService} from './opening.service';
+import {GradientsService} from './gradients.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -34,6 +35,8 @@ export class ImageProcessingService {
   private readonly closureService: ClosureService = inject(ClosureService);
 
   private readonly openingService: OpeningService = inject(OpeningService);
+
+  private readonly gradientsService: GradientsService = inject(GradientsService);
 
   public applyFilter(
     canvas: HTMLCanvasElement,
@@ -112,6 +115,16 @@ export class ImageProcessingService {
         case 'Размыкание': {
           const filteredOpeningData: ImageData = this.openingService.applyOpening(imageData);
           context.putImageData(filteredOpeningData, 0, 0);
+          break;
+        }
+        case 'Робертса': {
+          const filteredRobertsData: ImageData = this.gradientsService.applyRobertsGradient(imageData);
+          context.putImageData(filteredRobertsData, 0, 0);
+          break;
+        }
+        case 'Собеля': {
+          const filteredSobelData: ImageData = this.gradientsService.applySobelGradient(imageData);
+          context.putImageData(filteredSobelData, 0, 0);
           break;
         }
       }

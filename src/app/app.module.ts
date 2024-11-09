@@ -32,6 +32,7 @@ import {DilateService} from './services/dilate.service';
 import {ErosionService} from './services/erosion.service';
 import {ClosureService} from './services/closure.service';
 import {OpeningService} from './services/opening.service';
+import {GradientsService} from './services/gradients.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -65,6 +66,7 @@ import {OpeningService} from './services/opening.service';
     ErosionService,
     ClosureService,
     OpeningService,
+    GradientsService,
   ],
   bootstrap: [AppComponent],
 })

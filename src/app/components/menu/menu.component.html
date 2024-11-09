@@ -114,8 +114,8 @@
         <!--Градиент-->
         <mat-button-toggle [matMenuTriggerFor]="menu"> Градиент </mat-button-toggle>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>Робертса</button>
-          <button mat-menu-item>Собеля</button>
+          <button mat-menu-item (click)="selectOption('Робертса')">Робертса</button>
+          <button mat-menu-item (click)="selectOption('Собеля')">Собеля</button>
         </mat-menu>
 
         <!--Вырезание диапазона яркостей-->
