@@ -6,6 +6,7 @@ import {LaplacianService} from './laplacian.service';
 import {BrightnessRangeCutoffService} from './brightness-range-cutoff.service';
 import {ThresholdService} from './threshold.service';
 import {LinearService} from './linear.service';
+import {DilateService} from './dilate.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -22,6 +23,8 @@ export class ImageProcessingService {
   private readonly thresholdService: ThresholdService = inject(ThresholdService);
 
   private readonly linearService: LinearService = inject(LinearService);
+
+  private readonly dilateService: DilateService = inject(DilateService);
 
   public applyFilter(
     canvas: HTMLCanvasElement,
@@ -80,6 +83,11 @@ export class ImageProcessingService {
         case 'Линейный фильтр': {
           const filteredLinearData: ImageData = this.linearService.applyLinearFilter(imageData, gain, bias);
           context.putImageData(filteredLinearData, 0, 0);
+          break;
+        }
+        case 'Дилатация': {
+          const filteredDilationData: ImageData = this.dilateService.applyDilation(imageData);
+          context.putImageData(filteredDilationData, 0, 0);
           break;
         }
       }
