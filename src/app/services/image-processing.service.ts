@@ -5,6 +5,7 @@ import {MedianService} from './median.service';
 import {LaplacianService} from './laplacian.service';
 import {BrightnessRangeCutoffService} from './brightness-range-cutoff.service';
 import {ThresholdService} from './threshold.service';
+import {LinearService} from './linear.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -20,6 +21,8 @@ export class ImageProcessingService {
 
   private readonly thresholdService: ThresholdService = inject(ThresholdService);
 
+  private readonly linearService: LinearService = inject(LinearService);
+
   public applyFilter(
     canvas: HTMLCanvasElement,
     filter: string,
@@ -28,17 +31,20 @@ export class ImageProcessingService {
     minBrightness: number,
     maxBrightness: number,
     threshold: number,
+    gain: number,
+    bias: number,
   ): string {
     const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
     if (context) {
       const imageData: ImageData = context.getImageData(0, 0, canvas.width, canvas.height);
 
       switch (filter) {
-        case 'Негатив':
+        case 'Негатив': {
           const filteredImageData: ImageData = this.imageNegativeService.applyNegativeFilter(imageData);
           context.putImageData(filteredImageData, 0, 0);
           break;
-        case 'Степенное преобразование':
+        }
+        case 'Степенное преобразование': {
           const filteredGammaData: ImageData = this.powerLawTransformationService.applyPowerLawTransformation(
             imageData,
             gamma,
@@ -46,15 +52,18 @@ export class ImageProcessingService {
           );
           context.putImageData(filteredGammaData, 0, 0);
           break;
-        case 'Медианный фильтр':
+        }
+        case 'Медианный фильтр': {
           const filteredMedianData: ImageData = this.medianService.applyMedianFilter(imageData);
           context.putImageData(filteredMedianData, 0, 0);
           break;
-        case 'Лапласиан':
+        }
+        case 'Лапласиан': {
           const filteredLaplacianService: ImageData = this.laplacianService.applyLaplacianFilter(imageData);
           context.putImageData(filteredLaplacianService, 0, 0);
           break;
-        case 'Вырезание диапазона яркостей':
+        }
+        case 'Вырезание диапазона яркостей': {
           const brightnessRangeCutoff: ImageData = this.brightnessRangeCutoff.applyBrightnessRangeCutoff(
             imageData,
             minBrightness,
@@ -62,10 +71,17 @@ export class ImageProcessingService {
           );
           context.putImageData(brightnessRangeCutoff, 0, 0);
           break;
-        case 'Пороговый фильтр':
+        }
+        case 'Пороговый фильтр': {
           const filteredThresholdData: ImageData = this.thresholdService.applyThresholdFilter(imageData, threshold);
           context.putImageData(filteredThresholdData, 0, 0);
           break;
+        }
+        case 'Линейный фильтр': {
+          const filteredLinearData: ImageData = this.linearService.applyLinearFilter(imageData, gain, bias);
+          context.putImageData(filteredLinearData, 0, 0);
+          break;
+        }
       }
       return canvas.toDataURL();
     }

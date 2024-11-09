@@ -3,6 +3,17 @@ import {FilterService} from '../../services/filter.service';
 import {Subject} from 'rxjs';
 import {ImageProcessingService} from '../../services/image-processing.service';
 
+interface FilterParams {
+  filter: string;
+  coefficient?: number | undefined;
+  gamma?: number | undefined;
+  minBrightness?: number | undefined;
+  maxBrightness?: number | undefined;
+  threshold?: number | undefined;
+  gain?: number | undefined;
+  bias?: number | undefined;
+}
+
 @Component({
   selector: 'app-photo-selection',
   templateUrl: './photo-selection.component.html',
@@ -26,11 +37,18 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
 
   public ngOnInit(): void {
-    this.filterService.filterSelected$.subscribe(
-      ({filter, coefficient, gamma, minBrightness, maxBrightness, threshold}) => {
-        this.applyFilter(filter, coefficient, gamma, minBrightness, maxBrightness, threshold);
-      },
-    );
+    this.filterService.filterSelected$.subscribe((params: FilterParams) => {
+      this.applyFilter(
+        params.filter,
+        params.coefficient,
+        params.gamma,
+        params.minBrightness,
+        params.maxBrightness,
+        params.threshold,
+        params.gain,
+        params.bias,
+      );
+    });
   }
 
   public ngOnDestroy(): void {
@@ -78,6 +96,8 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
     minBrightness?: number,
     maxBrightness?: number,
     threshold?: number,
+    gain?: number,
+    bias?: number,
   ): void {
     if (this.canvas) {
       this.selectedImage = this.imageProcessingService.applyFilter(
@@ -88,6 +108,8 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
         minBrightness ?? 0,
         maxBrightness ?? 255,
         threshold ?? 0,
+        gain ?? 0,
+        bias ?? 0,
       );
     }
   }

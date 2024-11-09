@@ -27,6 +27,7 @@ import {MedianService} from './services/median.service';
 import {LaplacianService} from './services/laplacian.service';
 import {BrightnessRangeCutoffService} from './services/brightness-range-cutoff.service';
 import {ThresholdService} from './services/threshold.service';
+import {LinearService} from './services/linear.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
@@ -55,6 +56,7 @@ import {ThresholdService} from './services/threshold.service';
     LaplacianService,
     BrightnessRangeCutoffService,
     ThresholdService,
+    LinearService,
   ],
   bootstrap: [AppComponent],
 })

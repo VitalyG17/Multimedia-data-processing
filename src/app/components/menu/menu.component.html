@@ -11,6 +11,50 @@
         {{ option }}
       </mat-button-toggle>
 
+      <!--Линейный фильтр-->
+      <mat-accordion multi>
+        <mat-expansion-panel class="accordion-element">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Линейный фильтр</mat-panel-title>
+          </mat-expansion-panel-header>
+          <span class="form-field-wrapper">
+            <mat-form-field>
+              <mat-label>Усиление</mat-label>
+              <input matInput type="number" min="0" required="true" [(ngModel)]="gain" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Смещение</mat-label>
+              <input matInput type="number" min="-128" max="128" required="true" [(ngModel)]="bias" />
+            </mat-form-field>
+
+            <button
+              mat-icon-button
+              matTooltipClass="tooltip"
+              matTooltip="Применить"
+              [disabled]="gain === null || gain === undefined || bias === null || bias === undefined"
+              (click)="selectOption('Линейный фильтр')"
+            >
+              <mat-icon>done</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltipClass="tooltip"
+              matTooltip="Подробнее о методе"
+              (click)="openDialog('Линейный фильтр')"
+            >
+              <mat-icon>info_i</mat-icon>
+            </button>
+          </span>
+          <mat-hint class="error-message" *ngIf="!gain || !bias">Заполните обязательные поля!</mat-hint>
+          <ng-container *ngIf="gain && bias">
+            <mat-hint class="error-message" *ngIf="bias < -128 || bias > 128"
+              >Значение смещения должно быть в диапазоне от -128 до 128!</mat-hint
+            >
+          </ng-container>
+        </mat-expansion-panel>
+      </mat-accordion>
+
       <!--Степенное преобразование-->
       <mat-accordion multi>
         <mat-expansion-panel class="accordion-element">
@@ -32,7 +76,7 @@
               mat-icon-button
               matTooltipClass="tooltip"
               matTooltip="Применить"
-              [disabled]="!coefficient || !gamma"
+              [disabled]="coefficient === null || coefficient === undefined || gamma === null || gamma === undefined"
               (click)="selectOption('Степенное преобразование')"
             >
               <mat-icon>done</mat-icon>
@@ -60,7 +104,7 @@
     <div class="column">
       <mat-button-toggle-group class="mat-button-toggle-vertical">
         <mat-button-toggle
-          *ngFor="let option of options.slice(6)"
+          *ngFor="let option of options.slice(8)"
           [checked]="option === selectedOption"
           (click)="selectOption(option)"
         >
@@ -95,7 +139,12 @@
                 mat-icon-button
                 matTooltipClass="tooltip"
                 matTooltip="Применить"
-                [disabled]="!minBrightness || !maxBrightness"
+                [disabled]="
+                  minBrightness === null ||
+                  minBrightness === undefined ||
+                  maxBrightness === null ||
+                  maxBrightness === undefined
+                "
                 (click)="selectOption('Вырезание диапазона яркостей')"
               >
                 <mat-icon>done</mat-icon>
@@ -140,7 +189,7 @@
               mat-icon-button
               matTooltipClass="tooltip"
               matTooltip="Применить"
-              [disabled]="!threshold"
+              [disabled]="threshold === null || threshold === undefined"
               (click)="selectOption('Пороговый фильтр')"
             >
               <mat-icon>done</mat-icon>

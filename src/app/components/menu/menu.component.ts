@@ -26,6 +26,10 @@ export class MenuComponent {
 
   protected threshold: number | undefined = undefined;
 
+  protected gain: number | undefined = undefined;
+
+  protected bias: number | undefined = undefined;
+
   private readonly filterService: FilterService = inject(FilterService);
 
   private readonly dialog: MatDialog = inject(MatDialog);
@@ -46,6 +50,17 @@ export class MenuComponent {
       this.filterService.selectFilter(option, undefined, undefined, this.minBrightness, this.maxBrightness);
     } else if (option === 'Пороговый фильтр') {
       this.filterService.selectFilter(option, undefined, undefined, undefined, undefined, this.threshold);
+    } else if (option === 'Линейный фильтр') {
+      this.filterService.selectFilter(
+        option,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        this.gain,
+        this.bias,
+      );
     } else {
       this.filterService.selectFilter(option);
     }
