@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {EventEmitter, inject, Injectable, Output} from '@angular/core';
 import {ImageNegativeService} from './image-negative.service';
 import {PowerLawTransformationService} from './power-law-transformation.service';
 import {MedianService} from './median.service';
@@ -46,6 +46,8 @@ export class ImageProcessingService {
   private readonly skeletonService: SkeletonService = inject(SkeletonService);
 
   private readonly otsuService: OtsuService = inject(OtsuService);
+
+  @Output() public imageDataUpdated: EventEmitter<ImageData> = new EventEmitter<ImageData>();
 
   public applyFilter(
     canvas: HTMLCanvasElement,
@@ -150,6 +152,10 @@ export class ImageProcessingService {
         case 'Метод Оцу': {
           const filteredOtsuData: ImageData = this.otsuService.applyOtsuThreshold(imageData);
           context.putImageData(filteredOtsuData, 0, 0);
+          break;
+        }
+        case 'Гистограмма': {
+          this.imageDataUpdated.emit(imageData);
           break;
         }
       }

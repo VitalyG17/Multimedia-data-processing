@@ -3,7 +3,14 @@
     <app-header></app-header>
   </div>
   <div class="content">
-    <app-photo-selection class="photo-selection"></app-photo-selection>
+    <app-photo-selection
+      class="photo-selection"
+      (imageDataLoaded)="onImageDataLoaded($event)"
+      (resetHistogram)="clearHistogram()"
+    ></app-photo-selection>
     <app-menu class="menu"></app-menu>
   </div>
+  <ng-container *ngIf="showHistogram">
+    <app-histogram [imageData]="selectedImageData"></app-histogram>
+  </ng-container>
 </div>

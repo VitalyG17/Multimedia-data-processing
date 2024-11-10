@@ -36,9 +36,19 @@ import {GradientsService} from './services/gradients.service';
 import {HighlightingBordersService} from './services/highlighting-borders.service';
 import {SkeletonService} from './services/skeleton.service';
 import {OtsuService} from './services/otsu.service';
+import {HistogramComponent} from './components/histogram/histogram.component';
+import {NgChartsModule} from 'ng2-charts';
+import {HistogramService} from './services/histogram.service';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, PhotoSelectionComponent, MenuComponent, DialogComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    PhotoSelectionComponent,
+    MenuComponent,
+    DialogComponent,
+    HistogramComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -54,6 +64,7 @@ import {OtsuService} from './services/otsu.service';
     FormsModule,
     MatTooltipModule,
     MatDialogModule,
+    NgChartsModule,
   ],
   providers: [
     ImageNegativeService,
@@ -73,6 +84,7 @@ import {OtsuService} from './services/otsu.service';
     HighlightingBordersService,
     SkeletonService,
     OtsuService,
+    HistogramService,
   ],
   bootstrap: [AppComponent],
 })

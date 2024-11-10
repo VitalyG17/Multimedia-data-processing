@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, OnDestroy, OnInit, Output} from '@angular/core';
 import {FilterService} from '../../services/filter.service';
 import {Subject} from 'rxjs';
 import {ImageProcessingService} from '../../services/image-processing.service';
@@ -20,6 +20,10 @@ interface FilterParams {
   styleUrls: ['./photo-selection.component.scss'],
 })
 export class PhotoSelectionComponent implements OnInit, OnDestroy {
+  @Output() public imageDataLoaded: EventEmitter<ImageData> = new EventEmitter<ImageData>();
+
+  @Output() public resetHistogram: EventEmitter<void> = new EventEmitter<void>();
+
   protected selectedFile: File | null = null;
 
   protected selectedImage: string = 'assets/img/none.jpg';
@@ -49,6 +53,10 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
         params.bias,
       );
     });
+
+    this.imageProcessingService.imageDataUpdated.subscribe((imageData: ImageData) => {
+      this.imageDataLoaded.emit(imageData);
+    });
   }
 
   public ngOnDestroy(): void {
@@ -75,6 +83,7 @@ export class PhotoSelectionComponent implements OnInit, OnDestroy {
   protected resetFilter(): void {
     this.selectedImage = this.originalImage;
     this.loadImageToCanvas();
+    this.resetHistogram.emit();
   }
 
   private loadImageToCanvas(): void {
