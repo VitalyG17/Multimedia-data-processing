@@ -14,6 +14,7 @@ import {GradientsService} from './gradients.service';
 import {HighlightingBordersService} from './highlighting-borders.service';
 import {SkeletonService} from './skeleton.service';
 import {OtsuService} from './otsu.service';
+import {HistogramEqualizationService} from './histogram-equalization.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -46,6 +47,8 @@ export class ImageProcessingService {
   private readonly skeletonService: SkeletonService = inject(SkeletonService);
 
   private readonly otsuService: OtsuService = inject(OtsuService);
+
+  private readonly histogramEqualizationService: HistogramEqualizationService = inject(HistogramEqualizationService);
 
   @Output() public imageDataUpdated: EventEmitter<ImageData> = new EventEmitter<ImageData>();
 
@@ -156,6 +159,12 @@ export class ImageProcessingService {
         }
         case 'Гистограмма': {
           this.imageDataUpdated.emit(imageData);
+          break;
+        }
+        case 'Эквализация гистограммы': {
+          const filteredHistogramData: ImageData =
+            this.histogramEqualizationService.applyHistogramEqualization(imageData);
+          context.putImageData(filteredHistogramData, 0, 0);
           break;
         }
       }

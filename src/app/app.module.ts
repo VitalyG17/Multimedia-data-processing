@@ -39,6 +39,7 @@ import {OtsuService} from './services/otsu.service';
 import {HistogramComponent} from './components/histogram/histogram.component';
 import {NgChartsModule} from 'ng2-charts';
 import {HistogramService} from './services/histogram.service';
+import {HistogramEqualizationService} from './services/histogram-equalization.service';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import {HistogramService} from './services/histogram.service';
     SkeletonService,
     OtsuService,
     HistogramService,
+    HistogramEqualizationService,
   ],
   bootstrap: [AppComponent],
 })
