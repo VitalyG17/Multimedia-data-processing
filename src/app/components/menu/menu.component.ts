@@ -30,6 +30,17 @@ export class MenuComponent {
 
   protected bias: number | undefined = undefined;
 
+  private readonly morphologicalMethods: string[] = [
+    'Дилатация',
+    'Эрозия',
+    'Замыкание',
+    'Размыкание',
+    'Выделение границ',
+    'Остов',
+  ];
+
+  public isMorphologicalMethod: boolean = false;
+
   private readonly filterService: FilterService = inject(FilterService);
 
   private readonly dialog: MatDialog = inject(MatDialog);
@@ -44,6 +55,9 @@ export class MenuComponent {
   }
 
   protected selectOption(option: string): void {
+    this.selectedOption = option;
+    this.updateRadioState();
+
     if (option === 'Степенное преобразование') {
       this.filterService.selectFilter(option, this.coefficient, this.gamma);
     } else if (option === 'Вырезание диапазона яркостей') {
@@ -64,5 +78,9 @@ export class MenuComponent {
     } else {
       this.filterService.selectFilter(option);
     }
+  }
+
+  private updateRadioState(): void {
+    this.isMorphologicalMethod = this.morphologicalMethods.includes(this.selectedOption ?? '');
   }
 }

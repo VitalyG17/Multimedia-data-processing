@@ -40,6 +40,9 @@ import {HistogramComponent} from './components/histogram/histogram.component';
 import {NgChartsModule} from 'ng2-charts';
 import {HistogramService} from './services/histogram.service';
 import {HistogramEqualizationService} from './services/histogram-equalization.service';
+import {MatRadioModule} from '@angular/material/radio';
+import {SharpeningService} from './services/sharpening.service';
+import {Sharpeningv2Service} from './services/sharpeningv2.service';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,7 @@ import {HistogramEqualizationService} from './services/histogram-equalization.se
     MatTooltipModule,
     MatDialogModule,
     NgChartsModule,
+    MatRadioModule,
   ],
   providers: [
     ImageNegativeService,
@@ -87,6 +91,8 @@ import {HistogramEqualizationService} from './services/histogram-equalization.se
     OtsuService,
     HistogramService,
     HistogramEqualizationService,
+    SharpeningService,
+    Sharpeningv2Service,
   ],
   bootstrap: [AppComponent],
 })

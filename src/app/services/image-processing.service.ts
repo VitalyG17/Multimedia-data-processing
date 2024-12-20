@@ -15,6 +15,8 @@ import {HighlightingBordersService} from './highlighting-borders.service';
 import {SkeletonService} from './skeleton.service';
 import {OtsuService} from './otsu.service';
 import {HistogramEqualizationService} from './histogram-equalization.service';
+import {SharpeningService} from './sharpening.service';
+import {Sharpeningv2Service} from './sharpeningv2.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -49,6 +51,10 @@ export class ImageProcessingService {
   private readonly otsuService: OtsuService = inject(OtsuService);
 
   private readonly histogramEqualizationService: HistogramEqualizationService = inject(HistogramEqualizationService);
+
+  private readonly sharpeningService: SharpeningService = inject(SharpeningService);
+
+  private readonly sharpeningService2: Sharpeningv2Service = inject(Sharpeningv2Service);
 
   @Output() public imageDataUpdated: EventEmitter<ImageData> = new EventEmitter<ImageData>();
 
@@ -164,6 +170,16 @@ export class ImageProcessingService {
         case 'Эквализация гистограммы': {
           const filteredHistogramData: ImageData =
             this.histogramEqualizationService.applyHistogramEqualization(imageData);
+          context.putImageData(filteredHistogramData, 0, 0);
+          break;
+        }
+        case 'Повышение резкости Ядро': {
+          const filteredHistogramData: ImageData = this.sharpeningService.applySharpening(imageData);
+          context.putImageData(filteredHistogramData, 0, 0);
+          break;
+        }
+        case 'Повышение резкости Лапласиан': {
+          const filteredHistogramData: ImageData = this.sharpeningService2.applySharpening(imageData);
           context.putImageData(filteredHistogramData, 0, 0);
           break;
         }

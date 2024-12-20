@@ -214,3 +214,10 @@
     </div>
   </div>
 </div>
+<span>
+  <mat-radio-group>
+    <mat-radio-button *ngFor="let option of ['Белый', 'Черный']" [disabled]="!isMorphologicalMethod">
+      {{ option }}
+    </mat-radio-button>
+  </mat-radio-group>
+</span>
