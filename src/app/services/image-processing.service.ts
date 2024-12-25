@@ -17,6 +17,8 @@ import {OtsuService} from './otsu.service';
 import {HistogramEqualizationService} from './histogram-equalization.service';
 import {SharpeningService} from './sharpening.service';
 import {Sharpeningv2Service} from './sharpeningv2.service';
+import {SegmentationService} from './segmentation.service';
+import {SharpeningAlternativeService} from './sharpening-alternative.service';
 
 @Injectable()
 export class ImageProcessingService {
@@ -55,6 +57,10 @@ export class ImageProcessingService {
   private readonly sharpeningService: SharpeningService = inject(SharpeningService);
 
   private readonly sharpeningService2: Sharpeningv2Service = inject(Sharpeningv2Service);
+
+  private readonly segmentationService: SegmentationService = inject(SegmentationService);
+
+  private readonly sharpeningAlternativeService: SharpeningAlternativeService = inject(SharpeningAlternativeService);
 
   @Output() public imageDataUpdated: EventEmitter<ImageData> = new EventEmitter<ImageData>();
 
@@ -178,8 +184,18 @@ export class ImageProcessingService {
           context.putImageData(filteredHistogramData, 0, 0);
           break;
         }
-        case 'Повышение резкости Лапласиан': {
+        case 'Повышение резкости': {
           const filteredHistogramData: ImageData = this.sharpeningService2.applySharpening(imageData);
+          context.putImageData(filteredHistogramData, 0, 0);
+          break;
+        }
+        case 'Повышение резкости #2': {
+          const filteredHistogramData: ImageData = this.sharpeningAlternativeService.applySharpening(imageData);
+          context.putImageData(filteredHistogramData, 0, 0);
+          break;
+        }
+        case 'Сегментация': {
+          const filteredHistogramData: ImageData = this.segmentationService.applySegmentation(imageData);
           context.putImageData(filteredHistogramData, 0, 0);
           break;
         }

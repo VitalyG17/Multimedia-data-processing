@@ -43,6 +43,8 @@ import {HistogramEqualizationService} from './services/histogram-equalization.se
 import {MatRadioModule} from '@angular/material/radio';
 import {SharpeningService} from './services/sharpening.service';
 import {Sharpeningv2Service} from './services/sharpeningv2.service';
+import {SegmentationService} from './services/segmentation.service';
+import {SharpeningAlternativeService} from './services/sharpening-alternative.service';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,8 @@ import {Sharpeningv2Service} from './services/sharpeningv2.service';
     HistogramEqualizationService,
     SharpeningService,
     Sharpeningv2Service,
+    SegmentationService,
+    SharpeningAlternativeService,
   ],
   bootstrap: [AppComponent],
 })

@@ -3,7 +3,7 @@
   <div class="column">
     <mat-button-toggle-group class="mat-button-toggle-vertical">
       <mat-button-toggle
-        *ngFor="let option of options.slice(0, 7)"
+        *ngFor="let option of options.slice(0, 8)"
         class="group-item"
         [checked]="option === selectedOption"
         (click)="selectOption(option)"
@@ -104,7 +104,7 @@
     <div class="column">
       <mat-button-toggle-group class="mat-button-toggle-vertical">
         <mat-button-toggle
-          *ngFor="let option of options.slice(7)"
+          *ngFor="let option of options.slice(8)"
           [checked]="option === selectedOption"
           (click)="selectOption(option)"
         >
@@ -215,8 +215,8 @@
   </div>
 </div>
 <span>
-  <mat-radio-group>
-    <mat-radio-button *ngFor="let option of ['Белый', 'Черный']" [disabled]="!isMorphologicalMethod">
+  <mat-radio-group *ngIf="isMorphologicalMethod">
+    <mat-radio-button *ngFor="let option of ['Белый', 'Черный']">
       {{ option }}
     </mat-radio-button>
   </mat-radio-group>
